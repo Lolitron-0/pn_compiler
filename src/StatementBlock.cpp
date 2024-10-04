@@ -1,5 +1,10 @@
+#include "Operations.hpp"
 #include "StatementBlock.hpp"
+#ifndef NOT_EJUDGE
+#include "ProfilerUndef.hpp"
+#else
 #include "Profiler.hpp"
+#endif
 
 namespace pn {
 
@@ -19,6 +24,7 @@ void StatementBlock::add_statement(
   process_stmt_stats(statement);
 }
 
+// for list
 // void StatementBlock::symbolic_optimize() {
 //   PROFILER_SCOPE("inner optimize");
 //   Stack symStack;
@@ -93,18 +99,17 @@ void StatementBlock::update_stats() {
     process_stmt_stats(stmt);
   }
 }
-// void StatementBlock::dump_stack_to_constants(Block::iterator newBlock,
-//                                              Stack& stack) {
-//   PROFILER_SCOPE("dump fold");
-//   while (!stack.empty()) {
-//     {
-//       PROFILER_SCOPE("insert");
-//       statements.insert(newBlock,
-//                         std::make_shared<ConstOp>(stack.back()));
-//       // newBlock.push_back(std::make_shared<ConstOp>(stack.back()));
-//     }
-//     stack.pop_back();
-//   }
-// }
+
+void StatementBlock::dump_stack_to_constants(Block& newBlock,
+                                             Stack& stack) {
+  PROFILER_SCOPE("dump fold");
+  while (!stack.empty()) {
+    {
+      PROFILER_SCOPE("insert");
+      newBlock.push_back(std::make_shared<ConstOp>(stack.back()));
+    }
+    stack.pop_back();
+  }
+}
 
 } // namespace pn

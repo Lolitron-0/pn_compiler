@@ -1,5 +1,9 @@
 #include "Operations.hpp"
+#ifndef NOT_EJUDGE
+#include "ProfilerUndef.hpp"
+#else
 #include "Profiler.hpp"
+#endif
 #include "StatementBlock.hpp"
 #include <cassert>
 #include <functional>
@@ -47,39 +51,6 @@ const static std::unordered_map<std::string,
           return std::make_shared<ModOp>();
         } },
     };
-
-// static auto split(std::string s) -> std::vector<std::string> {
-//   std::vector<std::string> tokens;
-//
-//   if (s.empty()) {
-//     return tokens;
-//   }
-//
-//   size_t pos{ s.find_first_not_of(' ') };
-//   if (pos == std::string::npos) {
-//     return tokens;
-//   }
-//
-//   if (pos != 0) {
-//     s.erase(0, pos);
-//   }
-//   std::string token;
-//   while ((pos = s.find(' ')) != std::string::npos) {
-//     token = s.substr(0, pos);
-//     tokens.push_back(token);
-//     s.erase(0, pos);
-//
-//     auto numSpaces{ s.find_first_not_of(' ') };
-//     if (numSpaces != std::string::npos) {
-//       s.erase(0, numSpaces);
-//     } else {
-//       return tokens;
-//     }
-//   }
-//   tokens.push_back(s);
-//
-//   return tokens;
-// }
 
 static auto split(std::string s) -> std::vector<std::string> {
   std::vector<std::string> tokens;
@@ -161,6 +132,7 @@ auto optimize(std::shared_ptr<Statement> stmt)
 
 #ifdef NOT_EJUDGE
 
+// for fuzzing
 // int main() {
 //   std::string testStr;
 //   std::cin >> testStr;
