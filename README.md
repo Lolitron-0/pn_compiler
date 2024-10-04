@@ -1,2 +1,2 @@
 # pn_compiler
-compiler for polish notation statements. implements constant folding
+compiler (or rather interpreter actually) for polish notation statements. implements constant folding
