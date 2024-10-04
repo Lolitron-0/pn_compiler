@@ -1,0 +1,8 @@
+*.so
+profile.json
+
+build
+docker-build
+.cache
+compile_commands.json
+node_modules
